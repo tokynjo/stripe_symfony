@@ -1,0 +1,6 @@
+d6646e,::1,GET,http://localhost/symfony3.0/web/app_dev.php/,1495031140,,200
+d2733d,::1,GET,http://localhost/symfony3.0/web/app_dev.php/,1495031659,a14027,200
+a14027,::1,GET,http://localhost/symfony3.0/web/app_dev.php/,1495031660,,500
+426eb8,::1,GET,http://localhost/symfony3.0/web/app_dev.php/,1495031681,1bef70,200
+1bef70,::1,GET,http://localhost/symfony3.0/web/app_dev.php/,1495031682,,500
+946e32,::1,GET,http://localhost/symfony3.0/web/app_dev.php/,1495031742,,200
