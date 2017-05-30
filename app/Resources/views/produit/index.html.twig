@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <h4>Produits list <a href="{{ path('produit_new') }}"><i class="glyphicon glyphicon-plus text-success"></i></a></h4>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.name }}</a></td>
+                <td>{{ produit.prix }}</td>
+                <td>
+
+                    <a href="{{ path('produit_show', { 'id': produit.id }) }}"><i
+                                class="glyphicon glyphicon-remove-circle text-danger"></i></a>
+
+                    <a href="{{ path('produit_edit', { 'id': produit.id }) }}"><i
+                                class="glyphicon glyphicon-floppy-disk text-success"></i></a>
+
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

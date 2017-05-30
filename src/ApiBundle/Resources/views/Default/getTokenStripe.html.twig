@@ -3,17 +3,17 @@
     Customers:
 {% endblock %}
  {% block content %}
-
+    <div class="container-fluid panel-primary">
      <form action='' method="POST" id="payment-form">
-         <div class="container">Name :<input type="text" name="name" value="Jenny Rosen" /></div>
-         <div class="container">Email :<input type="mail" name="email" value="tokynjo2@gmail.com"/></div>
-         <div class="container">Code Bleu :<input type="text" data-stripe="number" value="4242 4242 4242 4242"/></div>
-         <div class="container">MM :<input type="text" data-stripe="exp_month" value="12" /></div>
-         <div class="container">YY :<input type="text" data-stripe="exp_year"/ value="18"></div>
-         <div class="container">CVC:<input type="text" data-stripe="cvc" value="123"/></div>
-         <div class="container"><input type="submit" value="ok"/></div>
+         <div class="container"><label>Name :</label><input type="text" name="name" value="Jenny Rosen" class="form-control"/></div>
+         <div class="container"><label>Email :</label><input type="mail" name="email" value="tokynjo2@gmail.com" class="form-control"/></div>
+         <div class="container"><label>Code Bleu :</label><input type="text" data-stripe="number" value="4242 4242 4242 4242" class="form-control"/></div>
+         <div class="container"><label>MM :</label><input type="text" data-stripe="exp_month" value="12" class="form-control"/></div>
+         <div class="container"><label>YY :</label><input type="text" data-stripe="exp_year" value="18" class="form-control"></div>
+         <div class="container"><label>CVC:</label><input type="text" data-stripe="cvc" value="123" class="form-control"/></div>
+         <div class="container"><input type="submit" value="ok" class="form-control btn btn-primary"/></div>
      </form>
-
+    </div>
  {% endblock %}
 {% block javascripts %}
     {{ parent() }}

@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new ApiBundle\ApiBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Tag\TagBundle\TagTagBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

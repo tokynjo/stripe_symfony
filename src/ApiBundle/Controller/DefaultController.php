@@ -13,7 +13,18 @@ use Symfony\Component\Serializer\Encoder\JsonDecode;
 class DefaultController extends Controller
 {
 
+    /**
+     * @Route("/", name="homepage_")
+     */
+    public function indexAction(Request $request)
+    {
 
+
+        // replace this example code with whatever you need
+        return $this->render('base.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
+        ]);
+    }
 
     /**
      **@Route("/app-liste-client-stripe",name="app_liste_client_stripe")

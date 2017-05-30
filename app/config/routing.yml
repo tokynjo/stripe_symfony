@@ -1,10 +1,23 @@
+api_produit:
+    resource: "@ApiBundle/Controller/ProduitController.php"
+    type:     annotation
+
+tag_tag:
+    resource: "@TagTagBundle/Resources/config/routing.yml"
+    prefix:   /
+
+api_post:
+    resource: "@ApiBundle/Controller/PostController.php"
+    type:     annotation
+
+
 api:
     resource: "@ApiBundle/Resources/config/routing.yml"
     prefix:   /
 api_:
     resource: "@ApiBundle/Controller/"
     type:     annotation
-app:
+app__:
     resource: "@AppBundle/Controller/"
     type:     annotation
 fos_user:
@@ -32,6 +45,7 @@ fos_user_change_password:
 
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
 
