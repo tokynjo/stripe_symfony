@@ -10,3 +10,5 @@ parameters:
     mailer_user: toynjo@amil.Fr
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    URL_API : https://api.stripe.com/v1/customers

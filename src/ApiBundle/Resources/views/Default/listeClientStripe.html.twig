@@ -1,55 +1,99 @@
 {% extends '::base.html.twig' %}
 {% block header %}
-    Customers:
+    Liste Customers:
 {% endblock %}
  {% block content %}
-
-     <form action='' method="POST" id="payment-form">
+     <table class="table table-hover table-responsive">
+         <thead>
+         <tr style="background: cornflowerblue;color:#FFF">
+             <th>id</th>
+             <th>Description</th>
+             <th>E-mail</th>
+             <th>Action</th>
+         </tr>
+         </thead>
+     {% for k,c in clients.data %}
+         <tr>
+             <td>{{ c.id }}</td>
+             <td><input type="text" style="border-width: 0px 0px 1px 0px;" name="descr_{{ c.id }}" value="{{ c.description }}"/></td>
+             <td>{{ c.email }}</td>
+             <td>
+                 <a href="javascript:void(0)" onclick="editElement('{{ path('app_edit_stripe',{'id':c.id}) }}',$(this))">
+                     <i class="glyphicon glyphicon-floppy-disk text-success"></i>
+                 </a>
+                 <a href="javascript:void(0)" onclick="deleteElement('{{ path('app_delete_stripe',{'id':c.id}) }}',$(this))"><i class="glyphicon glyphicon-remove-circle text-danger"></i></a>
+             </td>
+         </tr>
+     {% endfor %}
+     </table>
+     <form action='' method="POST" id="payment-form" class="hide">
          <div class="container">Name :<input type="text" name="name" value="Jenny Rosen" /></div>
          <div class="container">Email :<input type="mail" name="email" value="tokynjo2@gmail.com"/></div>
          <div class="container">Code Bleu :<input type="text" data-stripe="number" value="4242 4242 4242 4242"/></div>
          <div class="container">MM :<input type="text" data-stripe="exp_month" value="12" /></div>
          <div class="container">YY :<input type="text" data-stripe="exp_year"/ value="18"></div>
          <div class="container">CVC:<input type="text" data-stripe="cvc" value="123"/></div>
+         <input type="text" value="" id="token">
          <div class="container"><input type="submit" value="ok"/></div>
      </form>
-     <div class="item2 text-center hide cache" style="width:100%;background: #000;opacity: 0.4;z-index:
-     9999;position:fixed;top:0px;left: 0px;height: 100%">
-         <div class=" ld ld-ring ld-cycle x2" style="height: 60px;width: 60px;top: 50%;font-size:30px;color:#FFF"></div>
-     </div>
- {% endblock %}
+     </form>
 {% block javascripts %}
     {{ parent() }}
-
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script>
-        Stripe.setPublishableKey('pk_test_Ux0aCx4O3fPBanowAxicY81l');
+<script>
 
-        var $form = $('#payment-form'); // On récupère le formulaire
-        $form.submit(function (e) {
-            $('div.cache').removeClass('hide');
-            e.preventDefault();
-            $form.find('button').prop('disabled', true); // On désactive le bouton submit
-            Stripe.card.createToken(
-                $form
-                , function (status, response) {
-
-                    if (response.error) { // Ah une erreur !
-                        // On affiche les erreurs
-                        console.log(response.error);
-                        $form.find('.payment-errors').text(response.error.message);
-                        $form.find('button').prop('disabled', false); // On réactive le bouton
-                    } else { // Le token a bien été créé
-                        var token = response.id; // On récupère le token
-                        console.log(token);
-                        // On crée un champs cachée qui contiendra notre token
-                        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-                        $form.get(0).submit(); // On soumet le formulaire
-                    }
-                });
+function deleteElement(url,obj){
+    $('div.cache').removeClass('hide');
+    $.ajax({
+        method: 'POST',
+        url: url,
+        data: '',
+        success: function (e) {
+            alert('Succèes');
+            obj.closest('tr').remove();
+            $('div.cache').addClass('hide');
+        },
+        error: function () {
+            alert('Il y a eu une erreur');
+            $('div.cache').addClass('hide');
+        }
+    });
+}
+var token = getTokenStripe();
+function editElement(url,obj){
+    $('div.cache').removeClass('hide');
+    var data='description='+obj.closest('tr').find('input:text').val()+'&token='+$('input#token').val();
+    getTokenStripe();
+    $.ajax({
+        method: 'POST',
+        url: url,
+        data: data,
+        success: function (e) {
+            alert('Succèes');
+            $('div.cache').addClass('hide');
+        },
+        error: function () {
+            alert('Il y a eu une erreur');
+            $('div.cache').addClass('hide');
+        }
+    });
+}
+function getTokenStripe(){
+    Stripe.setPublishableKey('pk_test_Ux0aCx4O3fPBanowAxicY81l');
+    var $form = $('#payment-form');
+    var token= null;
+    Stripe.card.createToken(
+        $form
+        , function (status, response) {
+            if (response.error) { // Ah une erreur !
+                // On affiche les erreurs
+                alert(response.error);
+            } else { // Le token a bien été créé
+                 $('input#token').val( response.id);
+            }
         });
-        {% if resultat.id is defined %}
-            alert('Customers created');
-        {% endif %}
-    </script>
+    return token;
+}
+</script>
 {% endblock %}
+ {% endblock %}

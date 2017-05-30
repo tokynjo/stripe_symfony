@@ -7,3 +7,11 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+     app.service_stripe:
+            class:     ApiBundle\Service\StripeService
+            arguments: ['%URL_API%']
+
+app.exception_listener:
+        class: ApiBundle\EventListener\ExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
